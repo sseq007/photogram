@@ -2,6 +2,7 @@ package com.cos.photogramstart.service;
 
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.domain.user.UserRepository;
+import com.cos.photogramstart.handler.ex.CustomValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,12 @@ public class AuthService {
         user.setPassword(encPassword);
         user.setRole("ROLE_USER");
 
-        User userEntity = userRepository.save(user);
-        return userEntity;
+        try {
+            User userEntity = userRepository.save(user);
+            return userEntity;
+
+        } catch (Exception e) {
+            throw new CustomValidationException("회원이름이 중복되었습니다", null);
+        }
     }
 }
