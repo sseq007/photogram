@@ -20,8 +20,13 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(CustomValidationException.class)
     public String validationException(CustomValidationException e) {
 
+        if (e.getErrorMap() == null) {
+            return Script.back(e.getMessage());
+        } else {
+            return Script.back(e.getErrorMap().toString());
 
-        return Script.back(e.getErrorMap().toString());
+        }
+
     }
 
     @ExceptionHandler(CustomValidationApiException.class)

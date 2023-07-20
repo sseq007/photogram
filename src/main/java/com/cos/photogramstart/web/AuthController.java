@@ -38,6 +38,11 @@ public class AuthController {
     @PostMapping("/auth/signup")
     public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
 
+        if (authService.아이디중복검사(signupDto.getUsername())) {
+            throw new CustomValidationException("중복아이디입니다", null);
+        }
+
+
         if (bindingResult.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
 

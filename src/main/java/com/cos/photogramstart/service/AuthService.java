@@ -22,13 +22,16 @@ public class AuthService {
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassword);
         user.setRole("ROLE_USER");
+        userRepository.existsByUsername(user.getUsername());
+        User userEntity = userRepository.save(user);
+        return userEntity;
+    }
 
-        try {
-            User userEntity = userRepository.save(user);
-            return userEntity;
+    @Transactional(readOnly = true)
+    public Boolean 아이디중복검사(String username) {
 
-        } catch (Exception e) {
-            throw new CustomValidationException("회원이름이 중복되었습니다", null);
-        }
+        boolean flag = userRepository.existsByUsername(username);
+
+        return flag;
     }
 }

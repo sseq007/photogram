@@ -24,7 +24,7 @@
                         <img src="/images/person.jpeg" alt="" id="imageUploadPreview" />
                     </div>
                     
-                    <!--사진설명 + 업로드버튼--> m
+                    <!--사진설명 + 업로드버튼-->
                     <div class="upload-form-detail">
                    		 <input type="text" placeholder="사진설명" name="caption">
                         <button class="cta blue">업로드</button>
